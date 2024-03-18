@@ -3,7 +3,6 @@ class AwscliAT1 < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  # awscli should only be updated every 10 releases on multiples of 10
   url "https://files.pythonhosted.org/packages/aa/d8/efab29c16f337eeba914a1ab6dbc6aa1d66e53ec806d867883c521b34013/awscli-1.32.60.tar.gz"
   sha256 "87073807c770ad27ecfa802c4e373e7d867588deb946f8ab266e9e9e69eb0e2d"
   license "Apache-2.0"
@@ -11,6 +10,7 @@ class AwscliAT1 < Formula
   livecheck do
     url "https://github.com/aws/aws-cli.git"
     regex(/^v?(1(?:\.\d+)+)$/i)
+    throttle 10
   end
 
   bottle do
