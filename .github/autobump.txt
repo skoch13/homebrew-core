@@ -869,6 +869,7 @@ hysteria
 hyx
 i2p
 iamy
+ibazel
 igraph
 igv
 ijq

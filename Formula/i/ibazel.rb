@@ -1,8 +1,8 @@
 class Ibazel < Formula
   desc "Tools for building Bazel targets when source files change"
   homepage "https://github.com/bazelbuild/bazel-watcher"
-  url "https://github.com/bazelbuild/bazel-watcher/archive/refs/tags/v0.24.0.tar.gz"
-  sha256 "bc0ac30e84aa8b8a18ae1fc69d9ef6c575a9fa28239f36b6d14d3603e2b1d667"
+  url "https://github.com/bazelbuild/bazel-watcher/archive/refs/tags/v0.25.0.tar.gz"
+  sha256 "e327f6263ebeaaac36695462f2507a687ba605cd1e05413c8a1916288ab8e581"
   license "Apache-2.0"
 
   bottle do
@@ -30,6 +30,15 @@ class Ibazel < Formula
   patch :DATA
 
   def install
+    # Bazel clears environment variables other than PATH during build, which
+    # breaks Homebrew's shim scripts that need HOMEBREW_* variables.
+    # Bazel's build also resolves the realpath of executables like `cc`,
+    # which breaks Homebrew's shim scripts that expect symlink paths.
+    #
+    # The workaround here is to disable the shim for C/C++ compilers.
+    ENV["CC"] = "/usr/bin/cc"
+    ENV["CXX"] = "/usr/bin/c++" if OS.linux?
+
     system "bazel", "build", "--config=release", "--workspace_status_command", "echo STABLE_GIT_VERSION #{version}", "//cmd/ibazel:ibazel"
     bin.install "bazel-bin/cmd/ibazel/ibazel_/ibazel"
   end
@@ -90,4 +99,4 @@ index 8a30e8f..09b254e 100644
 +++ b/.bazelversion
 @@ -1 +1 @@
 -5.4.0
-+6.4.0
++7.1.0
