@@ -441,6 +441,10 @@
   "meta-package-manager": {
     "exclude_packages": ["certifi"]
   },
+  "mlx": {
+    "package_name": "",
+    "extra_packages": ["setuptools"]
+  },
   "molecule": {
     "extra_packages": ["docker-py", "molecule-vagrant", "python-vagrant"],
     "exclude_packages": ["certifi", "cryptography"]
