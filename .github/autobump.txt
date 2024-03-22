@@ -1749,6 +1749,7 @@ traefik
 trafficserver
 trafilatura
 translate-toolkit
+travis
 tree
 tree-sitter
 triangle
