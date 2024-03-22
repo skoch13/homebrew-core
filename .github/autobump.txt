@@ -1223,6 +1223,7 @@ nats-server
 nats-streaming-server
 naturaldocs
 navi
+ncmdump
 ncspot
 ncview
 needle

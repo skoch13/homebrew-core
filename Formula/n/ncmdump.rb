@@ -1,8 +1,8 @@
 class Ncmdump < Formula
   desc "Convert Netease Cloud Music ncm files to mp3/flac files"
   homepage "https://github.com/taurusxin/ncmdump"
-  url "https://github.com/taurusxin/ncmdump/archive/refs/tags/1.2.1.tar.gz"
-  sha256 "a1bd97fd1b46f9ba4ffaac0cf6cf1e920b49bf6ec753870ad0e6e07a72c2de2d"
+  url "https://github.com/taurusxin/ncmdump/archive/refs/tags/1.3.0.tar.gz"
+  sha256 "e00a94129cc8c9b9c211d74157c533bac8a78180b534c93cfad2544e639f068a"
   license "MIT"
   head "https://github.com/taurusxin/ncmdump.git", branch: "main"
 
