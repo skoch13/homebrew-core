@@ -4,6 +4,7 @@ class Libphonenumber < Formula
   url "https://github.com/google/libphonenumber/archive/refs/tags/v8.13.32.tar.gz"
   sha256 "88ba4be45cb95bd01b87952d37416145bd135e203c1f6893a610983463c0cacd"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
