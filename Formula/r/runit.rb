@@ -22,6 +22,11 @@ class Runit < Formula
     sha256                               x86_64_linux:   "4f36fd98073523f04cebacef60f30fae7501f351c4a885e3a7a4540e41cafb14"
   end
 
+  on_macos do
+    # Resolve `call to undeclared function` errors on macOS 13
+    patch :DATA
+  end
+
   def install
     # Runit untars to 'admin/runit-VERSION'
     cd "runit-#{version}" do
@@ -77,3 +82,58 @@ class Runit < Formula
     assert_match "usage: #{bin}/runsvdir [-P] dir", shell_output("#{bin}/runsvdir 2>&1", 1)
   end
 end
+
+__END__
+diff -ur a/runit-2.1.2/src/lock_ex.c b/runit-2.1.2/src/lock_ex.c
+--- a/runit-2.1.2/src/lock_ex.c 2014-08-10 14:22:34
++++ b/runit-2.1.2/src/lock_ex.c 2024-03-24 17:21:11
+@@ -3,6 +3,7 @@
+ #include <sys/types.h>
+ #include <sys/file.h>
+ #include <fcntl.h>
++#include <unistd.h>
+ #include "hasflock.h"
+ #include "lock.h"
+
+diff -ur a/runit-2.1.2/src/lock_exnb.c b/runit-2.1.2/src/lock_exnb.c
+--- a/runit-2.1.2/src/lock_exnb.c 2014-08-10 14:22:35
++++ b/runit-2.1.2/src/lock_exnb.c 2024-03-24 17:21:22
+@@ -3,6 +3,7 @@
+ #include <sys/types.h>
+ #include <sys/file.h>
+ #include <fcntl.h>
++#include <unistd.h>
+ #include "hasflock.h"
+ #include "lock.h"
+
+diff -ur a/runit-2.1.2/src/pathexec_run.c b/runit-2.1.2/src/pathexec_run.c
+--- a/runit-2.1.2/src/pathexec_run.c  2014-08-10 14:22:35
++++ b/runit-2.1.2/src/pathexec_run.c  2024-03-24 17:21:32
+@@ -1,5 +1,6 @@
+ /* Public domain. */
+
++#include <unistd.h>
+ #include "error.h"
+ #include "stralloc.h"
+ #include "str.h"
+diff -ur a/runit-2.1.2/src/prot.c b/runit-2.1.2/src/prot.c
+--- a/runit-2.1.2/src/prot.c  2014-08-10 14:22:35
++++ b/runit-2.1.2/src/prot.c  2024-03-24 17:21:40
+@@ -1,5 +1,6 @@
+ /* Public domain. */
+
++#include <unistd.h>
+ #include "hasshsgr.h"
+ #include "prot.h"
+
+diff -ur a/runit-2.1.2/src/seek_set.c b/runit-2.1.2/src/seek_set.c
+--- a/runit-2.1.2/src/seek_set.c  2014-08-10 14:22:34
++++ b/runit-2.1.2/src/seek_set.c  2024-03-24 17:21:51
+@@ -1,6 +1,7 @@
+ /* Public domain. */
+
+ #include <sys/types.h>
++#include <unistd.h>
+ #include "seek.h"
+
+ #define SET 0 /* sigh */
